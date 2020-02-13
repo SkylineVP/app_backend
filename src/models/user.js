@@ -1,17 +1,25 @@
 'use strict';
 const bcrypt=require('bcrypt');
-const { NAME_PATTERN, SALT_ROUND } = require( '../constants' );
-const nameAttribute = {
-    type: DataTypes.STRING,
-    allowNull: false,
-    validate: {
-        is: NAME_PATTERN,
-    }
-};
+const { SALT_ROUND,NAME_PATTERN } = require( '../constants' );
+
+
 module.exports = (sequelize, DataTypes) => {
+
     const User = sequelize.define('User', {
-        firstName: nameAttribute,
-        lastName: nameAttribute,
+        firstName: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            validate: {
+                is: NAME_PATTERN,
+            }
+        },
+        lastName: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            validate: {
+                is: NAME_PATTERN,
+            }
+        },
         email: {
             type: DataTypes.STRING,
             unique: true,
@@ -20,12 +28,12 @@ module.exports = (sequelize, DataTypes) => {
             }
         },
         login: {
-            type: Sequelize.STRING( 16 ),
+            type: DataTypes.STRING( 16 ),
             allowNull: false,
             unique: true,
         },
         password:{
-            type: Sequelize.STRING,
+            type: DataTypes.STRING,
             allowNull: false,
             field: 'passwordHash',
             set (value) {
@@ -41,7 +49,9 @@ module.exports = (sequelize, DataTypes) => {
 
     }, {});
     User.associate = function (models) {
-        // associations can be defined here
+       User.hasMany(models.Task,{
+           foreignKey:'userId'
+       });
     };
     return User;
 };
