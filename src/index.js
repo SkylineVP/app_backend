@@ -1,5 +1,6 @@
 const router=require('./routes');
 const express=require('express');
+const {checkAuthorization}=require('./middlewares/user');
 const PORT=process.env.PORT||3000;
 
 const app=express();
