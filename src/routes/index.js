@@ -5,7 +5,7 @@ const {checkAuthorization}=require('../middlewares/user');
 const router = express.Router();
 
 router.use(checkAuthorization);
-router.use('/user', userRouter);
+router.use( userRouter );
 router.use('/task',taskRouter);
 
 module.exports=router;

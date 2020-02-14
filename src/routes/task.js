@@ -1,11 +1,14 @@
 const express=require("express");
 const {TaskController}=require('../controllers');
+const {extractTaskId} =require('./../middlewares/task');
 
-const TaskRouter=express.Router();
+const taskRouter=express.Router();
 
-TaskRouter.get('/:id',TaskController.getTaskByPk);
-TaskRouter.post('',TaskController.createTask);
-TaskRouter.patch('/:id',TaskController.updateTask);
-TaskRouter.delete('/:id',TaskController.deleteTaskByPk);
+taskRouter.route('/task(/:id)?')
+    .post(TaskController.createTask)
+    .all(extractTaskId)
+    .get(TaskController.getTaskById)
+    .patch(TaskController.updateTaskById)
+    .delete(TaskController.deleteTaskById);
 
-module.exports=TaskRouter;
+module.exports=taskRouter;

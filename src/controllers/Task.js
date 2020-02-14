@@ -13,7 +13,7 @@ class TaskController {
        next(e);
       }
     };
-    updateTask=async (req,res,next)=>{
+    updateTaskById=async (req, res, next)=>{
         try {
             return res.send(await this.controller.update(req.params.id,req.body));
         }
@@ -21,14 +21,14 @@ class TaskController {
             next(e);
         }
     };
-    getTaskByPk = async (req, res, next) => {
+    getTaskById = async (req, res, next) => {
         try {
             res.send( await this.controller.read( req.params.id ) );
         } catch (e) {
             next( e );
         }
     };
-    deleteTaskByPk = async (req, res, next) => {
+    deleteTaskById = async (req, res, next) => {
         try {
             res.send( `${await this.controller.delete( req.params.id )}` );
         } catch (e) {

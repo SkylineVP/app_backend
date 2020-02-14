@@ -16,7 +16,7 @@ class UserController {
             next( e );
         }
     };
-    updateUser = async (req, res, next) => {
+    updateUserById = async (req, res, next) => {
         try {
             const updatedUser = await this.controller.update( req.params.id, req.body );
             const data = updatedUser.get();
@@ -27,7 +27,7 @@ class UserController {
         }
 
     };
-    getUserByPk = async (req, res, next) => {
+    getUserById = async (req, res, next) => {
         try {
             res.send( await this.controller.read( req.params.id, {
                 attributes: {
@@ -38,7 +38,7 @@ class UserController {
             next( e );
         }
     };
-    deleteUserByPk = async (req, res, next) => {
+    deleteUserById = async (req, res, next) => {
         try {
             res.send( `${await this.controller.delete( req.params.id )}` );
         } catch (e) {
